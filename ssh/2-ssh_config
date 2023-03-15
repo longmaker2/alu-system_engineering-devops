@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# SSH client configuration
+# configured to use the private key ~/.ssh/school
+Include /etc/ssh/ssh_config.d/*.conf
+Host *
+    SendEnv LANG LC_*
+    HashKnownHosts yes
+    GSSAPIAuthentication yes
+    IdentityFile ~/.ssh/school
+    PasswordAuthentication no
