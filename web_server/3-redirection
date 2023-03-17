@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
-# Update package repositories and install Nginx
+# script Configure your Nginx server so that /redirect_me is redirecting to another page;
+
 apt-get update
 apt-get install -y nginx
 
-# Create necessary directories and files
-mkdir -p /etc/nginx/html
-touch /etc/nginx/html/index.html
-echo "Holberton School" > /etc/nginx/html/index.html
+mkdir /etc/nginx/html
 
-# Configure Nginx
-sudo printf %s "server {
+touch /etc/nginx/html/index.html
+
+echo "Holberton School" > /etc/nginx/html/index.html
+printf %s "server {
      listen      80 default_server;
      listen      [::]:80 default_server;
      root        /etc/nginx/html;
@@ -20,5 +20,4 @@ sudo printf %s "server {
 }
 " > /etc/nginx/sites-available/default
 
-# Restart Nginx service
 sudo service nginx restart
