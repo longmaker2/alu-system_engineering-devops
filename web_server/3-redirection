@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# a Bash script containing commands to automatically configure
+# bash script to install nginx web server & make the following configurations:
+
+apt-get update
+apt-get install -y nginx
+
+mkdir /etc/nginx/html
+
+touch /etc/nginx/html/index.html
+
+echo "Holberton School" > /etc/nginx/html/index.html
+printf %s "server {
+     listen      80 default_server;
+     listen      [::]:80 default_server;
+     root        /etc/nginx/html;
+     index       index.html index.htm;
+     location /redirect_me {
+        return 301 http://youtube.com/;
+    }
+}
+" > /etc/nginx/sites-available/default
+
+
+sudo service nginx restart
