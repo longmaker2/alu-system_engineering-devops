@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # Update package repositories and install Nginx
-sudo apt-get update
-sudo apt-get install -y nginx
+apt-get update
+apt-get install -y nginx
 
 # Create necessary directories and files
-sudo mkdir -p /etc/nginx/html
-sudo touch /etc/nginx/html/index.html
-sudo echo "Holberton School" > /etc/nginx/html/index.html
+mkdir -p /etc/nginx/html
+touch /etc/nginx/html/index.html
+echo "Holberton School" > /etc/nginx/html/index.html
 
 # Configure Nginx
 sudo printf %s "server {
