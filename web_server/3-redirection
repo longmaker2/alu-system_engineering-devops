@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# a Bash script containing commands to automatically configure
-# bash script to install nginx web server & make the following configurations:
+# script Configure your Nginx server so that /redirect_me is redirecting to another page;
 
 apt-get update
 apt-get install -y nginx
