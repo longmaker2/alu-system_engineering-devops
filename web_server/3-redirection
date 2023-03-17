@@ -1,24 +1,28 @@
-#!/usr/bin/env bash
-# a Bash script containing commands to automatically configure
-# bash script to install nginx web server & make the following configurations:
+#!/bin/bash
 
-apt-get update
-apt-get install -y nginx
+# Install Nginx web server
+wget -qO - https://nginx.org/keys/nginx_signing.key | sudo apt-key add -
+echo "deb http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" | sudo tee /etc/apt/sources.list.d/nginx.list
+sudo apt-get update
+sudo apt-get install nginx -y
 
-mkdir /etc/nginx/html
+# Create a new configuration file for the redirection
+sudo bash -c 'cat << EOF > /etc/nginx/sites-available/redirect.conf
+server {
+  listen 80;
+  server_name longmaker.tech;
 
-touch /etc/nginx/html/index.html
-
-echo "Holberton School" > /etc/nginx/html/index.html
-printf %s "server {
-     listen      80 default_server;
-     listen      [::]:80 default_server;
-     root        /etc/nginx/html;
-     index       index.html index.htm;
-     location /redirect_me {
-        return 301 http://youtube.com/;
-    }
+  location /redirect_me {
+    return 301 https://longmaker.tech/;
+  }
 }
-" > /etc/nginx/sites-available/default
+EOF'
 
-sudo service nginx restart
+# Enable the new configuration file
+sudo ln -s /etc/nginx/sites-available/redirect.conf /etc/nginx/sites-enabled/
+
+# Test the Nginx configuration
+sudo nginx -t
+
+# Restart Nginx
+sudo systemctl restart nginx
