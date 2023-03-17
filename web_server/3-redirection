@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Install Nginx web server
 wget -qO - https://nginx.org/keys/nginx_signing.key | sudo apt-key add -
