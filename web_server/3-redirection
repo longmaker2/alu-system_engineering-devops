@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+# a Bash script containing commands
 # Install Nginx web server
 wget -qO - https://nginx.org/keys/nginx_signing.key | sudo apt-key add -
 echo "deb http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" | sudo tee /etc/apt/sources.list.d/nginx.list
