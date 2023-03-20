@@ -11,6 +11,6 @@ printf %s "listen 5432-web
     mode http
     balance roundrobin
     server 5432-web-01 18.209.24.5:80 check
-    server 5432-web-02 	18.209.63.24:80 check
+    server 5432-web-02 18.209.63.24:80 check
 " >> /etc/haproxy/haproxy.cfg
 sudo service haproxy restart
