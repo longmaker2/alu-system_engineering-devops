@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# a script to install nginx web server & make the following configurations:
+
+apt-get update
+apt-get install -y nginx
+
+mkdir /etc/nginx/html
+
+touch /etc/nginx/html/index.html
+
+
+echo "Holberton School" > /etc/nginx/html/index.html
+
+# Create custom 404 error page
+echo "<!DOCTYPE html>
+<html>
+<head>
+  <title>404 Not Found</title>
+</head>
+<body>
+  <h1>404 Not Found</h1>
+  <p>Ceci n'est pas une page</p>
+</body>
+</html>" | sudo tee /var/www/html/404.html >/dev/null
+
+printf %s "server {
+     listen      80 default_server;
+     listen      [::]:80 default_server;
+     root        /etc/nginx/html;
+     index       index.html index.htm;
+     add_header X-Served-By $HOSTNAME;
+     error_page 404 /404.html;
+     location /404 {
+        root /etc/nginx/html;
+        internal;
+     }
+}
+" > /etc/nginx/sites-available/default
+
+service nginx restart
