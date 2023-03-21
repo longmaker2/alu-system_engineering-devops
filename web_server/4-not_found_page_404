@@ -1,29 +1,40 @@
 #!/usr/bin/env bash
-# bash script that configures Nginx server to respond to status code '404',
-# that returns a custom Error 404 page containing "Ceci n'est pas une page".
+# Configure your Nginx server to have a custom 404 page that contains the string Ceci n'est pas une page;
 
 apt-get update
 apt-get install -y nginx
 
 mkdir /etc/nginx/html
+
 touch /etc/nginx/html/index.html
+
+
 echo "Holberton School" > /etc/nginx/html/index.html
-touch /etc/nginx/html/404.html
 echo "Ceci n'est pas une page" > /etc/nginx/html/404.html
 
-printf %s "server {
-    listen 80;
-    listen [::]:80 default_server;
-    root   /etc/nginx/html;
-    index  index.html index.htm;
-    location /redirect_me {
-        return 301 http://youtube.com/;
-    }
-    error_page 404 /404.html;
-    location /404 {
-      root /etc/nginx/html;
-      internal;
-    }
-}" > /etc/nginx/sites-available/default
 
-sudo service nginx restart
+# Create custom 404 error page
+echo "<!DOCTYPE html>
+<html>
+<head>
+  <title>404 Not Found</title>
+</head>
+<body>
+  <h1>404 Not Found</h1>
+  <p>Ceci n'est pas une page</p>
+</body>
+</html>" | sudo tee /var/www/html/404.html >/dev/nullservice nginx restart
+
+printf %s "server {
+     listen      80 default_server;
+     listen      [::]:80 default_server;
+     root        /etc/nginx/html;
+     index       index.html index.htm;
+     error_page 404 /404.html;
+     location /404 {
+        root /etc/nginx/html;
+        internal;
+     }
+}
+" > /etc/nginx/sites-available/default
+service nginx restart
