@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# a script that installs HAProxy & makes configurations to meet the following requirements:
+# bash script that installs HAProxy & makes configurations to meet the following requirements:
 
 apt-get -y install software-properties-common
 add-apt-repository ppa:vbernat/haproxy-1.8
 apt-get update
 apt-get -y install haproxy
 echo "ENABLED=1" >> /etc/default/haproxy
-printf %s "listen 5432-web
+printf %s "listen 5521-web
     bind *:80
     mode http
     balance roundrobin
