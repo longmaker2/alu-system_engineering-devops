@@ -1,16 +1,8 @@
 #!/usr/bin/env bash
 # Changes port 80 to 8080 in /etc/nginx/sites-available/default
 # Bash script with the minimum number of commands to automate your fix
-regex_existing_ipv4_config="listen\s.[0-9]+\sdefault_server"
-port_80_ipv4_config="listen 80 default_server"
 
-regex_existing_ipv6_config="listen\s\[::\]:.[0-9]\sdefault_server"
-port_80_ipv6_config="listen [::]:80 default_server"
-
-sed -ri "s/$regex_existing_ipv4_config/$port_80_ipv4_config/" /etc/nginx/sites-available/default
-sed -ri "s/$regex_existing_ipv4_config/$port_80_ipv4_config/" /etc/nginx/sites-enabled/default
-
-sed -ri "s/$regex_existing_ipv6_config/$port_80_ipv6_config/" /etc/nginx/sites-available/default
-sed -ri "s/$regex_existing_ipv6_config/$port_80_ipv6_config/" /etc/nginx/sites-enabled/default
-
-sudo service nginx restart
+#!/usr/bin/env bash
+# bash script that configures 'nginx' to run & listen to port 80
+sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
+service nginx restart
