@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# bash script that configures container
+sudo chmod -R 755 /etc/nginx/
+sudo pkill -9 apache2
+sudo sed -i 's/8080/8081/g' /etc/apache2/ports.conf
+su nginx -c "sed -i 's/80/8080/g' /etc/nginx/sites-enabled/default"
+su nginx service nginx restart
