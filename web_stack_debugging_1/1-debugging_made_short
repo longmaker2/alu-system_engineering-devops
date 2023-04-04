@@ -2,4 +2,4 @@
 # bash script that configures 'nginx' to run & listen to port 80
 sed -i "s/8080/80/g" /etc/nginx/sites-enabled/default
 service nginx restart
-kill -9 "$(cat /run/nginx.pid)"
+sudo service nginx stop
